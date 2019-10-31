@@ -20,46 +20,46 @@ architecture behaviour of alu is
                     when "0000" =>  --unsigned add
                                 bv_addu(operand1,operand2,tempres,flow);
                                 if flow then
-                                    error_code<= "0001";
+                                    error<= "0001";
                                 end if ;
                     when "0001" => -- unsigned sub
                                 bv_subu(operand1,operand2,tempres,flow);
                                 if flow then
-                                    error_code<= "0010";                                
+                                    error<= "0010";                                
                                 end if ;
                     when "0010" => --two's add
                                 bv_add(operand1,operand2,tempres,flow);
                                 if flow then
-                                    error_code<= "0001";
+                                    error<= "0001";
                                 elsif (operand1(operand1'left) = '1' and operand(operand2'left) = '1' and tempres(tempres'left) = '1') then
-                                    error_code<= "0010";
+                                    error<= "0010";
                                 end if ;
                     when "0011" => -- two's sub
                                 bv_sub(operand1,operand2,tempres,flow);
                                 if flow then
-                                    error_code<= "0010";
+                                    error<= "0010";
                                 elsif (operand1(operand1'left) = '1' and operand2(operand2'left) = '1' and tempres(tempres'left) = '1') then
-                                    error_code<= "0010";
+                                    error<= "0010";
                                 end if ;
                     when "0100" => --two's mult
                                 bv_mult(operand1,operand2,tempres,flow);
                                 if flow then
-                                    error_code<= "0001";
+                                    error<= "0001";
                                 elsif (operand1(operand1'left) = '1' and operand2(operand2'left) = '0' and tempres(tempres'left) = '0') then
-                                    error_code<= "0010";
+                                    error<= "0010";
                                 elsif (operand1(operand1'left) = '0' and operand2(operand2'left) = '1' and tempres(tempres'left) = '0') then
-                                    error_code<= "0010";
+                                    error<= "0010";
                                 end if ;
                     when "0101" => --two's div
                                 bv_div(operand1,operand2,tempres,divzero,flow);
                                 if divzero = 0 then
-                                    error_code<= "0011";
+                                    error<= "0011";
                                 elsif flow then
-                                    error_code<= "0001";
+                                    error<= "0001";
                                 elsif (operand1(operand1'left) = '1' and operand2(operand2'left) = '0' and tempres(tempres'left) = '0') then
-                                    error_code<= "0010";
+                                    error<= "0010";
                                 elsif (operand1(operand1'left) = '0' and operand2(operand2'left) = '1' and tempres(tempres'left) = '0') then
-                                    error_code=> "0010";
+                                    error=> "0010";
                                 end if ;
                     when "0110" => --logical &
                                 tempres := operand1 and operand2;
